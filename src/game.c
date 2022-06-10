@@ -68,7 +68,9 @@ int game_init(struct game *game)
 
 int game_run(struct game *game)
 {
-	float ms_per_frame = 1000.0f / game->fps;
+    game_init(game);
+
+    float ms_per_frame = 1000.0f / game->fps;
 
 	Uint32 ms_per_move = 200;
 	Uint32 frame_start;
@@ -115,7 +117,9 @@ int game_run(struct game *game)
 		}
     }
 
-	return 0;
+    game_terminate(game);
+
+    return 0;
 }
 
 int update_game(struct game *game)
