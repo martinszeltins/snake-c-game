@@ -5,7 +5,7 @@
 #include "controller.h"
 #include "renderer.h"
 
-struct game *create_game(void)
+struct game *game_create(void)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 

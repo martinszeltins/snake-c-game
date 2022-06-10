@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-    struct game *game = create_game();
+    struct game *game = game_create();
 
     game_init(game);
     game_run(game);

@@ -38,7 +38,7 @@ struct game {
 	int direction;
 };
 
-struct game *create_game(void);
+struct game *game_create(void);
 int game_init(struct game *game);
 int game_run(struct game *game);
 int update_game(struct game *game);
