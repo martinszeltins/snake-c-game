@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "game.h"
-#include "controller.h"
+#include "input.h"
 
-int handle_input(struct game *game)
+int input_handle(struct game *game)
 {
 	SDL_Event event;
 

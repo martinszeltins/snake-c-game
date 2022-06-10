@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <math.h>
 #include "game.h"
-#include "controller.h"
+#include "input.h"
 #include "renderer.h"
 
 struct game *game_create(void)
@@ -85,7 +85,7 @@ int game_run(struct game *game)
     while (game->is_running) {
 		frame_start = SDL_GetTicks();
 
-        handle_input(game);
+        input_handle(game);
 		render_game(game);
 
 		if (frame_start - move_time_stamp > ms_per_move - game->speed) {
