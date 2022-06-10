@@ -53,8 +53,9 @@ int game_init(struct game *game)
     );
 
 	char title[64];
-
-	SDL_SetWindowTitle(game->window, title);
+    
+    sprintf(title, "Score: %", game->size);
+    SDL_SetWindowTitle(game->window, title);
 
 	game->renderer = SDL_CreateRenderer(game->window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -100,7 +101,7 @@ int game_run(struct game *game)
 		if (frame_end - frame_time_stamp >= 1000) {
 			char title[64];
             sprintf(title, "Score: %", game->size);
-            
+
             SDL_SetWindowTitle(game->window, title);
 			frame_count = 0;
 			frame_time_stamp = frame_end;
