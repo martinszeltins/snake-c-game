@@ -30,7 +30,7 @@ int render_game(struct game *game)
 	block.x = game->body[0].x * block.w;
 	block.y = game->body[0].y * block.h;
     
-	if (game->alive) {
+	if (game->is_alive) {
 		SDL_SetRenderDrawColor(game->renderer, 0x66, 0x66, 0xee, 0xff);
 	} else {
 		SDL_SetRenderDrawColor(game->renderer, 0xff, 0x22, 0x22, 0xff);

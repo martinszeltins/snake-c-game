@@ -32,7 +32,7 @@ struct game {
     int grid_height;
 	int speed;
 
-    bool alive;
+    bool is_alive;
 	bool is_running;
 	bool isgrowing;
 	int direction;

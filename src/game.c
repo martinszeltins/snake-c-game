@@ -35,7 +35,7 @@ int game_init(struct game *game)
     game->grid_height = game->grid_width;
 	game->size = 1;
     game->body = (struct game_point*) malloc(sizeof(struct game_point) * 512);
-    game->alive = true;
+    game->is_alive = true;
 	game->is_running = true;
 	game->isgrowing = false;
 	game->direction = SDIR_LEFT;
@@ -124,7 +124,7 @@ int game_run(struct game *game)
 
 int update_game(struct game *game)
 {
-	if (!game->alive) return 0;
+	if (!game->is_alive) return 0;
 
 	move_snake_body(game);
 
@@ -133,9 +133,9 @@ int update_game(struct game *game)
 		generate_food(game);
 	}
 
-	for (int i = 1; game->alive && i < game->size; i++) {
+	for (int i = 1; game->is_alive && i < game->size; i++) {
 		if (game->body[0].x == game->body[i].x && game->body[0].y == game->body[i].y) {
-			game->alive = false;
+			game->is_alive = false;
 			printf("======== Game over ========\n");
 			printf("Score: %d.\n", game->size);
 			printf("Press 'ENTER' to restart.\n");
@@ -287,7 +287,7 @@ int change_direction(struct game *game, int key)
 
 int game_reset(struct game *game)
 {
-    game->alive = true;
+    game->is_alive = true;
     game->size = 1;
     game->speed = 100;
 }
