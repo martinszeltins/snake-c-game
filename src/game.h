@@ -39,7 +39,7 @@ struct snake {
 };
 
 struct snake *create_snake_game(void);
-int init_game(struct snake *game, int argc, char **argv);
+int init_game(struct snake *game);
 int snake_game_run(struct snake *game);
 int update_snake_game(struct snake *game);
 int move_snake_body(struct snake *game);

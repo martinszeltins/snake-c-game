@@ -1,55 +1,41 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <math.h>
-
 #include "game.h"
 #include "controller.h"
 #include "renderer.h"
 
-/*
- * Create snake game..
- */
 struct snake *create_snake_game(void)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-                fprintf(stderr, "SDL INIT ERROR: %s\n", SDL_GetError());
-                return NULL;
-        }
+	SDL_Init(SDL_INIT_EVERYTHING);
 
-        struct snake *game = NULL;
-        if ((game = (struct snake *) malloc(sizeof(struct snake))) == NULL) {
-                fprintf(stderr, "Malloc error.\n");
-                return NULL;
-        }
+    struct snake *game = NULL;
+    game = (struct snake *) malloc(sizeof(struct snake));
+
 	bzero(game, sizeof(struct snake));
 
-        return game;
+    return game;
 }
 
-/*
- * Initialize game.
- * Create window and renderer.
- * generate food and snake's head.
- */
-int init_game(struct snake *game, int argc, char **argv)
+int init_game(struct snake *game)
 {
 	game->speed = 5;
+
 	if (game->screen_width == 0) {
 		game->screen_width = WINDOW_WIDTH;
 		game->screen_height = WINDOW_HEIGHT;
 	}
-        game->grid_width = 25;
-	if (game->screen_width % game->grid_width != 0) {
+
+    game->grid_width = 25;
+	
+    if (game->screen_width % game->grid_width != 0) {
 		game->grid_width++;
 	}
-        game->grid_height = game->grid_width;
+
+    game->grid_height = game->grid_width;
 	game->size = 1;
-        game->body =
-		(struct snake_point*) malloc(sizeof(struct snake_point) * 512);
-        if (game->body == NULL) {
-                fprintf(stderr, "Malloc error.\n");
-        }
-        game->alive = true;
+    game->body = (struct snake_point*) malloc(sizeof(struct snake_point) * 512);
+    game->alive = true;
 	game->isrunning = true;
 	game->isgrowing = false;
 	game->direction = SDIR_LEFT;
@@ -58,55 +44,33 @@ int init_game(struct snake *game, int argc, char **argv)
 		game->fps = FRAMERATE;
 	}
 
-	game->window = SDL_CreateWindow(
-		"",
-                SDL_WINDOWPOS_CENTERED,
-                SDL_WINDOWPOS_CENTERED,
-                game->screen_width,
-                game->screen_height,
-                0
-        );
+	game->window = SDL_CreateWindow("",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        game->screen_width,
+        game->screen_height,
+        0
+    );
 
 	char title[64];
-	sprintf(title, "%dfps -- Score: %d -- Snake",
-		game->fps, game->size);
+
 	SDL_SetWindowTitle(game->window, title);
 
-        if (game->window == NULL) {
-                fprintf(stderr, "Failed to create window: %s\n",
-			SDL_GetError());
-        }
-
-	game->renderer = SDL_CreateRenderer(
-		game->window, -1, SDL_RENDERER_ACCELERATED);
-	if (game->renderer == NULL)
-	{
-		fprintf(stderr, "Render error: %s\n", SDL_GetError());
-		return 0;
-	}
+	game->renderer = SDL_CreateRenderer(game->window, -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_SetWindowResizable(game->window, SDL_FALSE);
 
-	/*
-	 * Generate head first, then generate food,
-	 * avoid head is generated in food.
-	 */
 	generate_head(game);
 	generate_food(game);
 
 	return 0;
 }
 
-/*
- * Main loop.
- * Calcuate game FPS.
- * handle input and render game.
- */
 int snake_game_run(struct snake *game)
 {
 	float ms_per_frame = 1000.0f / game->fps;
-	Uint32 ms_per_move = 200;
 
+	Uint32 ms_per_move = 200;
 	Uint32 frame_start;
 	Uint32 frame_end;
 	Uint32 frame_duration;
@@ -115,16 +79,14 @@ int snake_game_run(struct snake *game)
 	Uint32 frame_count = 0;
 
 	move_time_stamp = frame_time_stamp = SDL_GetTicks();
-        while (game->isrunning)
-        {
+
+    while (game->isrunning) {
 		frame_start = SDL_GetTicks();
 
-                handle_input(game);
+        handle_input(game);
 		render_game(game);
 
-		if (frame_start - move_time_stamp
-				> ms_per_move - game->speed)
-		{
+		if (frame_start - move_time_stamp > ms_per_move - game->speed) {
 			update_snake_game(game);
 			move_time_stamp = frame_start;
 		}
@@ -135,8 +97,7 @@ int snake_game_run(struct snake *game)
 
 		if (frame_end - frame_time_stamp >= 1000) {
 			char title[64];
-			sprintf(title, "%dfps -- Score: %d -- Snake",
-				frame_count, game->size);
+			
 			SDL_SetWindowTitle(game->window, title);
 			frame_count = 0;
 			frame_time_stamp = frame_end;
