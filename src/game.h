@@ -13,16 +13,16 @@
 
 enum SNAKE_DIRECTION { SDIR_UP, SDIR_DOWN, SDIR_LEFT, SDIR_RIGHT };
 
-struct snake_point {
+struct snake_game_point {
 	int x;
 	int y;
 };
 
-struct snake {
+struct snake_game {
     SDL_Window *window;
 	SDL_Renderer *renderer;
-	struct snake_point *body;
-	struct snake_point food;
+	struct snake_game_point *body;
+	struct snake_game_point food;
 
 	int size;
 	int screen_width;
@@ -38,13 +38,13 @@ struct snake {
 	int direction;
 };
 
-struct snake *create_snake_game(void);
-int init_game(struct snake *game);
-int snake_game_run(struct snake *game);
-int update_snake_game(struct snake *game);
-int move_snake_body(struct snake *game);
-int generate_food(struct snake *game);
-int generate_head(struct snake *game);
-int destroy_snake_game(struct snake *game);
+struct snake_game *create_snake_game(void);
+int init_game(struct snake_game *game);
+int snake_game_run(struct snake_game *game);
+int update_snake_game(struct snake_game *game);
+int move_snake_body(struct snake_game *game);
+int generate_food(struct snake_game *game);
+int generate_head(struct snake_game *game);
+int destroy_snake_game(struct snake_game *game);
 
 #endif

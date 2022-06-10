@@ -4,7 +4,7 @@
 #include "game.h"
 #include "controller.h"
 
-int handle_input(struct snake *game)
+int handle_input(struct snake_game *game)
 {
 	SDL_Event event;
 
@@ -44,7 +44,7 @@ int handle_input(struct snake *game)
 	return 0;
 }
 
-int change_direction(struct snake *game, int type)
+int change_direction(struct snake_game *game, int type)
 {
 	switch (type) {
         case SDLK_w:
