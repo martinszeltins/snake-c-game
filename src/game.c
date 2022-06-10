@@ -5,19 +5,19 @@
 #include "controller.h"
 #include "renderer.h"
 
-struct snake_game *create_snake_game(void)
+struct game *create_game(void)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-    struct snake_game *game = NULL;
-    game = (struct snake_game *) malloc(sizeof(struct snake_game));
+    struct game *game = NULL;
+    game = (struct game *) malloc(sizeof(struct game));
 
-	bzero(game, sizeof(struct snake_game));
+	bzero(game, sizeof(struct game));
 
     return game;
 }
 
-int init_game(struct snake_game *game)
+int game_init(struct game *game)
 {
 	game->speed = 5;
 
@@ -34,7 +34,7 @@ int init_game(struct snake_game *game)
 
     game->grid_height = game->grid_width;
 	game->size = 1;
-    game->body = (struct snake_game_point*) malloc(sizeof(struct snake_game_point) * 512);
+    game->body = (struct game_point*) malloc(sizeof(struct game_point) * 512);
     game->alive = true;
 	game->isrunning = true;
 	game->isgrowing = false;
@@ -66,7 +66,7 @@ int init_game(struct snake_game *game)
 	return 0;
 }
 
-int snake_game_run(struct snake_game *game)
+int game_run(struct game *game)
 {
 	float ms_per_frame = 1000.0f / game->fps;
 
@@ -87,7 +87,7 @@ int snake_game_run(struct snake_game *game)
 		render_game(game);
 
 		if (frame_start - move_time_stamp > ms_per_move - game->speed) {
-			update_snake_game(game);
+			update_game(game);
 			move_time_stamp = frame_start;
 		}
 
@@ -118,7 +118,7 @@ int snake_game_run(struct snake_game *game)
 	return 0;
 }
 
-int update_snake_game(struct snake_game *game)
+int update_game(struct game *game)
 {
 	if (!game->alive) return 0;
 
@@ -141,7 +141,7 @@ int update_snake_game(struct snake_game *game)
 	return 0;
 }
 
-int move_snake_body(struct snake_game *game)
+int move_snake_body(struct game *game)
 {
 	if (game->isgrowing && game->size < 512) {
 		++game->size;
@@ -197,7 +197,7 @@ int move_snake_body(struct snake_game *game)
 	return 0;
 }
 
-int generate_food(struct snake_game *game)
+int generate_food(struct game *game)
 {
 	int limit_x = game->grid_width;
 	int limit_y = game->grid_height;
@@ -220,7 +220,7 @@ int generate_food(struct snake_game *game)
 	return 0;
 }
 
-int generate_head(struct snake_game *game)
+int generate_head(struct game *game)
 {
 	int limit_x = game->grid_width;
 	int limit_y = game->grid_height;
@@ -231,7 +231,7 @@ int generate_head(struct snake_game *game)
 	return 0;
 }
 
-int destroy_snake_game(struct snake_game *game)
+int game_terminate(struct game *game)
 {
     if (game == NULL) return 0;
 

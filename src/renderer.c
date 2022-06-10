@@ -5,7 +5,7 @@
 #include "game.h"
 #include "renderer.h"
 
-int render_game(struct snake_game *game)
+int render_game(struct game *game)
 {
 	SDL_Rect block;
 
