@@ -284,3 +284,10 @@ int change_direction(struct game *game, int key)
 
 	return 0;
 }
+
+int game_reset(struct game *game)
+{
+    game->alive = true;
+    game->size = 1;
+    game->speed = 100;
+}

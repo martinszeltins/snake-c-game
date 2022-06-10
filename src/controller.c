@@ -28,9 +28,7 @@ int handle_input(struct game *game)
                 case SDLK_KP_ENTER:
                 case 0x0D:
                     if (!game->alive) {
-                        game->alive = true;
-                        game->size = 1;
-                        game->speed = 100;
+                        game_reset(game);
 				    }
 
                     break;

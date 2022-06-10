@@ -47,5 +47,6 @@ int generate_food(struct game *game);
 int generate_head(struct game *game);
 int game_terminate(struct game *game);
 int change_direction(struct game *game, int type);
+int game_reset(struct game *game);
 
 #endif
