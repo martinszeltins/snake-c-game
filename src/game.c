@@ -99,8 +99,9 @@ int game_run(struct game *game)
 
 		if (frame_end - frame_time_stamp >= 1000) {
 			char title[64];
-
-			SDL_SetWindowTitle(game->window, title);
+            sprintf(title, "Score: %", game->size);
+            
+            SDL_SetWindowTitle(game->window, title);
 			frame_count = 0;
 			frame_time_stamp = frame_end;
 		}
