@@ -19,20 +19,20 @@ struct snake_point {
 };
 
 struct snake {
-        SDL_Window *window;
+    SDL_Window *window;
 	SDL_Renderer *renderer;
 	struct snake_point *body;
 	struct snake_point food;
 
-	int size;		// body length
+	int size;
 	int screen_width;
 	int screen_height;
 	int fps;
-        int grid_width;
-        int grid_height;
+    int grid_width;
+    int grid_height;
 	int speed;
 
-        bool alive;
+    bool alive;
 	bool isrunning;
 	bool isgrowing;
 	int direction;
