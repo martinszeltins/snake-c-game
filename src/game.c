@@ -19,7 +19,7 @@ struct game *game_create(void)
 
 int game_init(struct game *game)
 {
-	game->speed = 5;
+	game->speed = 100;
 
 	if (game->screen_width == 0) {
 		game->screen_width = WINDOW_WIDTH;
@@ -152,7 +152,7 @@ int move_snake_body(struct game *game)
 		game->isgrowing = false;
 
 		if (game->size % 5 == 0) {
-			game->speed += 5;
+			game->speed += 20;
 		}
 	}
 
