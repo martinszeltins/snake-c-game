@@ -36,7 +36,7 @@ int game_init(struct game *game)
 	game->size = 1;
     game->body = (struct game_point*) malloc(sizeof(struct game_point) * 512);
     game->alive = true;
-	game->isrunning = true;
+	game->is_running = true;
 	game->isgrowing = false;
 	game->direction = SDIR_LEFT;
 
@@ -82,7 +82,7 @@ int game_run(struct game *game)
 
 	move_time_stamp = frame_time_stamp = SDL_GetTicks();
 
-    while (game->isrunning) {
+    while (game->is_running) {
 		frame_start = SDL_GetTicks();
 
         handle_input(game);

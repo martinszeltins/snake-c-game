@@ -10,7 +10,7 @@ int handle_input(struct game *game)
 
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) {
-			game->isrunning = false;
+			game->is_running = false;
 		}
 
 		if (event.type == SDL_KEYDOWN) {
@@ -18,11 +18,11 @@ int handle_input(struct game *game)
 
 			switch (key) {
                 case SDLK_ESCAPE:
-                    game->isrunning = false;
+                    game->is_running = false;
                     break;
 
                 case SDLK_q:
-                    game->isrunning = false;
+                    game->is_running = false;
                     break;
 
                 case SDLK_KP_ENTER:
