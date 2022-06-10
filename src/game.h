@@ -34,7 +34,7 @@ struct game {
 
     bool is_alive;
 	bool is_running;
-	bool isgrowing;
+	bool is_growing;
 	int direction;
 };
 

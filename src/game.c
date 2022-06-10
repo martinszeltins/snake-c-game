@@ -37,7 +37,7 @@ int game_init(struct game *game)
     game->body = (struct game_point*) malloc(sizeof(struct game_point) * 512);
     game->is_alive = true;
 	game->is_running = true;
-	game->isgrowing = false;
+	game->is_growing = false;
 	game->direction = SDIR_LEFT;
 
 	if (game->fps == 0) {
@@ -53,7 +53,7 @@ int game_init(struct game *game)
     );
 
 	char title[64];
-    
+
     sprintf(title, "Score: %", game->size);
     SDL_SetWindowTitle(game->window, title);
 
@@ -131,7 +131,7 @@ int update_game(struct game *game)
 	move_snake_body(game);
 
 	if (game->body[0].x == game->food.x && game->body[0].y == game->food.y) {
-		game->isgrowing = true;
+		game->is_growing = true;
 		generate_food(game);
 	}
 
@@ -149,9 +149,9 @@ int update_game(struct game *game)
 
 int move_snake_body(struct game *game)
 {
-	if (game->isgrowing && game->size < 512) {
+	if (game->is_growing && game->size < 512) {
 		++game->size;
-		game->isgrowing = false;
+		game->is_growing = false;
 
 		if (game->size % 5 == 0) {
 			game->speed += 20;
